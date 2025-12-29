@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1 class="mt" style="margin-top: var(--space-2xl);">Новости</h1>
+    
+    {% if news_list %}
+    <div class="news-list">
+        {% for news in news_list %}
+        <article class="news-card">
+            {% if news.cover_image %}
+            <img src="{{ news.cover_image.get_rendition 'width-400' .url }}" alt="{{ news.title }}" class="news-card-image">
+            {% else %}
+            <div class="news-card-image" style="background-color: var(--light-gray);"></div>
+            {% endif %}
+            <div class="news-card-content">
+                <time class="news-card-date">{{ news.first_published_at|date:'d.m.Y' }}</time>
+                <h3 class="news-card-title">{{ news.title }}</h3>
+                <p class="news-card-excerpt">{{ news.lead|striptags|truncatewords:30 }}</p>
+                <a href="{{ news.url }}" class="btn btn-secondary news-card-link">Читать далее</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}">← Предыдущая</a>
+        {% endif %}
+        
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая →</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p>Новостей ещё нет.</p>
+    {% endif %}
+</main>
+{% endblock %}

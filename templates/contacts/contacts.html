@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1 class="mt" style="margin-top: var(--space-2xl);">Контакты</h1>
+    
+    {% if contacts.intro %}
+    <div class="rich-text mt" style="margin-top: var(--space-lg);">
+        {{ contacts.intro|safe }}
+    </div>
+    {% endif %}
+    
+    <div class="contacts-container mt" style="margin-top: var(--space-2xl);">
+        <div class="contacts-info">
+            <div class="contact-item">
+                <div class="contact-label">Организация</div>
+                <div class="contact-value">{{ contacts.full_name }}</div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-label">Сокращённое название</div>
+                <div class="contact-value">{{ contacts.short_name }}</div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-label">Телефон</div>
+                <div class="contact-value"><a href="tel:{{ contacts.phone }}">{{ contacts.phone }}</a></div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a></div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-label">Юридический адрес</div>
+                <div class="contact-value">{{ contacts.legal_address }}</div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-label">Фактический адрес</div>
+                <div class="contact-value">{{ contacts.actual_address }}</div>
+            </div>
+            
+            <div class="working-hours">
+                <div class="working-hours-title">График работы</div>
+                <div>{{ contacts.working_hours }}</div>
+            </div>
+        </div>
+        
+        {% if contacts.yandex_maps_embed %}
+        <div class="contacts-map">
+            {{ contacts.yandex_maps_embed|safe }}
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

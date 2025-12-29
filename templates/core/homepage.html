@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block title %}{% firstof page.title 'МосводостокСтройТрест' %}{% endblock %}
+
+{% block content %}
+<main class="container">
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('{% if page.hero_image %}{{ page.hero_image.get_rendition 'width-1200' .url }}{% endif %}')
+">
+        <div class="hero-content">
+            <h1>{{ page.hero_title }}</h1>
+            {% if page.hero_subtitle %}
+            <div class="hero-subtitle">{{ page.hero_subtitle|safe }}</div>
+            {% endif %}
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    {% if page.show_featured_news %}
+    <section class="py" style="padding: var(--space-2xl) 0;">
+        <h2 class="text-center mb" style="margin-bottom: var(--space-lg);">{{ page.featured_section_title }}</h2>
+        <div class="rich-text">
+            {{ page.featured_section_text|safe }}
+        </div>
+        <div class="text-center mt">
+            <a href="/about/" class="btn">{{ page.featured_section_button_text }}</a>
+        </div>
+    </section>
+    {% endif %}
+    
+    <!-- Latest News -->
+    <section class="py" style="padding: var(--space-2xl) 0;">
+        <h2 class="text-center mb" style="margin-bottom: var(--space-lg);">Последние новости</h2>
+        {% if news_list %}
+        <div class="news-list">
+            {% for news in news_list %}
+            <article class="news-card">
+                {% if news.cover_image %}
+                <img src="{{ news.cover_image.get_rendition 'width-400' .url }}" alt="{{ news.title }}" class="news-card-image">
+                {% else %}
+                <div class="news-card-image" style="background-color: var(--light-gray);"></div>
+                {% endif %}
+                <div class="news-card-content">
+                    <time class="news-card-date">{{ news.first_published_at|date:'d.m.Y' }}</time>
+                    <h3 class="news-card-title">{{ news.title }}</h3>
+                    <p class="news-card-excerpt">{{ news.lead|striptags|truncatewords:30 }}</p>
+                    <a href="{{ news.url }}" class="btn btn-secondary news-card-link">Читать далее</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">Новостей ещё нет.</p>
+        {% endif %}
+        <div class="text-center mt">
+            <a href="/news/" class="btn">Все новости</a>
+        </div>
+    </section>
+объё</main>
+{% endblock %}
