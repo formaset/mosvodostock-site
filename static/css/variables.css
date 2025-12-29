@@ -1,0 +1,46 @@
+:root {
+  /* Основные цвета брендбука */
+  --royal-blue: #002F6C;
+  --sky-blue: #9BCBEB;
+  --bright-red: #C8102E;
+  --forest-green: #44883E;
+  --safety-orange: #FF8200;
+  --deep-teal: #00837E;
+  --rich-purple: #8C4799;
+  --berry-maroon: #722257;
+  
+  /* Нейтральные цвета */
+  --white: #FFFFFF;
+  --black: #000000;
+  --light-gray: #F5F5F5;
+  --medium-gray: #CCCCCC;
+  --dark-gray: #333333;
+  
+  /* Typography */
+  --font-family-base: 'Montserrat', sans-serif;
+  --font-family-heading: 'Unbounded', sans-serif;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Border radius */
+  --border-radius: 4px;
+  --border-radius-lg: 8px;
+}

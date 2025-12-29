@@ -1,0 +1,80 @@
+/* Contacts Layout */
+.contacts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  margin: var(--space-2xl) 0;
+}
+
+.contacts-info {
+  flex: 1;
+}
+
+.contacts-map {
+  flex: 1;
+  min-height: 400px;
+}
+
+.contacts-map iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-lg);
+  border: none;
+}
+
+/* Contact Item */
+.contact-item {
+  margin-bottom: var(--space-lg);
+}
+
+.contact-label {
+  font-weight: 600;
+  color: var(--royal-blue);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.contact-value {
+  font-size: var(--font-size-md);
+  color: var(--dark-gray);
+}
+
+.contact-value a {
+  color: var(--royal-blue);
+  text-decoration: none;
+}
+
+.contact-value a:hover {
+  text-decoration: underline;
+}
+
+/* Working Hours */
+.working-hours {
+  background-color: var(--light-gray);
+  padding: var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  margin-top: var(--space-lg);
+}
+
+.working-hours-title {
+  font-weight: 600;
+  color: var(--royal-blue);
+  margin-bottom: var(--space-md);
+}
+
+.working-hours-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  .contacts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .contacts-map {
+    min-height: 300px;
+  }
+}
