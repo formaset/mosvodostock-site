@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+<div class="gallery-block">
+    {% if block.value.title %}
+    <h3>{{ block.value.title }}</h3>
+    {% endif %}
+    <div class="gallery-grid">
+        {% for image in block.value.images %}
+        <div class="gallery-item">
+            <img src="{{ image.value.get_rendition 'width-300' .url }}" alt="{{ image.value.title }}">
+        </div>
+        {% endfor %}
+    </div>
+</div>

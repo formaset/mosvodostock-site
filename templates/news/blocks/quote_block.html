@@ -1,0 +1,6 @@
+<blockquote class="quote-block">
+    {{ block.value.text|safe }}
+    {% if block.value.author %}
+    <div class="quote-author">— {{ block.value.author }}</div>
+    {% endif %}
+</blockquote>

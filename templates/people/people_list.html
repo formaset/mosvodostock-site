@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Руководство{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1 class="mt" style="margin-top: var(--space-2xl);">Руководство</h1>
+    
+    <div class="people-grid mt" style="margin-top: var(--space-lg);">
+        {% for person in people %}
+        <div class="person-card">
+            {% if person.photo %}
+            <img src="{{ person.photo.url }}" alt="{{ person.full_name }}" class="person-photo">
+            {% else %}
+            <div class="person-photo" style="background-color: var(--light-gray);"></div>
+            {% endif %}
+            <div class="person-info">
+                <h3 class="person-name">{{ person.full_name }}</h3>
+                <p class="person-position">{{ person.position }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Оценка деятельности{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1 class="mt" style="margin-top: var(--space-2xl);">Награды и благодарности</h1>
+    
+    <div class="awards-grid mt" style="margin-top: var(--space-lg);">
+        {% for award in awards %}
+        <div class="award-card">
+            <img src="{{ award.image.url }}" alt="{{ award.title }}" class="award-image">
+            <div class="award-content">
+                <h3 class="award-title">{{ award.title }}</h3>
+                {% if award.description %}
+                <p class="award-description">{{ award.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
