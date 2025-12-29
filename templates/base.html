@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}АНО по развитию городской среды МосводостокСтройТрест{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}МосводостокСтройТрест{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% endblock %}">
+    
+    <title>{% block title %}МосводостокСтройТрест{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
+    <link rel="stylesheet" href="{% static 'css/people.css' %}">
+    <link rel="stylesheet" href="{% static 'css/awards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contacts.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="{% url 'wagtailcore:root' %}" class="logo-section">
+                <div class="logo">МСТ</div>
+                <div class="site-title">АНО «МосводостокСтройТрест»</div>
+            </a>
+            
+            <nav>
+                <div class="dropdown">
+                    <a href="#">Организация</a>
+                    <div class="dropdown-menu">
+                        <a href="/about/">Об организации</a>
+                        <a href="/people/">Руководство</a>
+                        <a href="/awards/">Оценка деятельности</a>
+                    </div>
+                </div>
+                <a href="/news/">Новости</a>
+                <a href="https://hh.ru/employer/11611956" target="_blank">Вакансии</a>
+                <a href="/contacts/">Контакты</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 АНО «МосводостокСтройТрест». Все права защищены.</p>
+            <p><small>Москва, Россия</small></p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Lightbox для галереи
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.award-card');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('.award-image');
+                    const lightbox = document.getElementById('lightbox') || createLightbox();
+                    lightbox.querySelector('.lightbox-image').src = img.src;
+                    lightbox.classList.add('active');
+                });
+            });
+        });
+        
+        function createLightbox() {
+            const lightbox = document.createElement('div');
+            lightbox.id = 'lightbox';
+            lightbox.className = 'lightbox';
+            lightbox.innerHTML = `
+                <div class="lightbox-content">
+                    <img src="" alt="" class="lightbox-image">
+                    <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</button>
+                </div>
+            `;
+            document.body.appendChild(lightbox);
+            return lightbox;
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
