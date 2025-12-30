@@ -19,14 +19,12 @@ if env_file.exists():
 SECRET_KEY = env('SECRET_KEY', default='change-me-in-production-!@#$%^&*()')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Application definition
 INSTALLED_APPS = [
-    'daphne',  # ASGI support
-    
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -39,9 +37,8 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail',
     
-    'wagtailmedia',
     'taggit',
-    'django_extensions',
+    'modelcluster',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -143,6 +140,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
@@ -173,15 +173,7 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_SECURITY_POLICY = {
-        'default-src': ("'self'", ),
-        'script-src': ("'self'", "'unsafe-inline'"),
-        'style-src': ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com"),
-        'font-src': ("'self'", "https://fonts.gstatic.com"),
-        'img-src': ("'self'", "data:", "https:"),
-        'media-src': ("'self'", "https:"),
-        'frame-src': ("https:", ),
-    }
+    X_FRAME_OPTIONS = 'DENY'
 
 # Logging
 LOGGING = {
@@ -197,7 +189,7 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'INFO',
     },
 }
