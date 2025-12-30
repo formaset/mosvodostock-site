@@ -3,18 +3,16 @@ from wagtail.models import Page, Orderable
 from wagtail.fields import StreamField, RichTextField
 from wagtail.blocks import (
     CharBlock, RichTextBlock, StreamBlock, StructBlock,
-    TextBlock, ImageChooserBlock, VideoChooserBlock
+    TextBlock
 )
-from wagtail.images.blocks import ImageChooserBlock as WagtailImageChooserBlock
-from wagtail.media.blocks import VideoChooserBlock as WagtailVideoChooserBlock
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from django.templatetags.static import static
 
 
 class NewsIndexPage(Page):
-    """Ну джетым"""
+    """Индекс новостей"""
     
     intro = RichTextField(
         blank=True,
@@ -68,7 +66,7 @@ class CalloutBlock(StructBlock):
     
     class Meta:
         template = 'news/blocks/callout_block.html'
-        icon = 'info'
+        icon = 'help'
         label = 'Примечание'
 
 
@@ -86,9 +84,9 @@ class StatisticBlock(StructBlock):
 class GalleryBlock(StructBlock):
     """Галерея изображений"""
     title = CharBlock(required=False, label='Название')
-    images = StreamField([
-        ('image', WagtailImageChooserBlock())
-    ], label='Изображения')
+    images = StreamBlock([
+        ('image', ImageChooserBlock())
+    ], label='Изображения', use_json_field=True)
     
     class Meta:
         template = 'news/blocks/gallery_block.html'
@@ -101,15 +99,15 @@ class SeparatorBlock(StructBlock):
     
     class Meta:
         template = 'news/blocks/separator_block.html'
-        icon = 'minus'
+        icon = 'horizontalrule'
         label = 'Разделитель'
 
 
 class NewsStreamBlock(StreamBlock):
     """Поток блоков для новостей"""
-    heading = CharBlock(icon='title', label='Заголовк')
+    heading = CharBlock(icon='title', label='Заголовок')
     paragraph = RichTextBlock(icon='pilcrow', label='Параграф')
-    image = WagtailImageChooserBlock(icon='image', label='Изображение')
+    image = ImageChooserBlock(icon='image', label='Изображение')
     video = DocumentChooserBlock(icon='media', label='Видео')
     quote = QuoteBlock(label='Цитата')
     callout = CalloutBlock(label='Примечание')
@@ -138,7 +136,8 @@ class NewsPage(Page):
     body = StreamField(
         NewsStreamBlock(),
         verbose_name='Основное содержание',
-        blank=True
+        blank=True,
+        use_json_field=True
     )
     
     content_panels = Page.content_panels + [
